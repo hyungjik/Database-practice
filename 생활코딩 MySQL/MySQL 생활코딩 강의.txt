@@ -1,0 +1,49 @@
+bitnami 에서 다운로드 받아서 클라이언트 활성화 시킨후 
+
+cd c:\bitnami\wampstack-7.1.8-0\mysql\bin
+mysql -uroot -p
+비밀번호 입력
+exit  # MySQL 나갈때 명령어
+
+CREATE DATABASE 스키마명;
+DROP DATABASE 스키마명;
+SHOW DATABASES;
+USE 스키마명;
+
+# 테이블 생성하기
+
+USE 테이블명;
+CREATE TABLE 테이블명(
+	id INT(11) NOT NULL AUTO_INCREMENT,  # NOT NULL은 공백을 허용하지 않음
+	title VARCHAR(100) NOT NULL,
+	description TEXT NULL,
+	created DATATIME NOT NULL,
+	author VARCHAR(30) NULL,
+	profile VARCHAR(30) NULL,
+	PRIMARY KEY(id));
+
+# 테이블보기
+SHOW TABLES;
+DESC 테이블명;  # 테이블 컬럼의 인풋 속성 보기
+
+INSERT INTO topic (title,description,created,author,profile) VALUES('MySQL','MySQL is ...',NOW(), 'egoing', 'developer');
+
+SELECT * FROM topic;  # * 위치에 원하는 컬럼명 입력
+
+# FROM WHERE 등 문법적인 순서를 지켜야함
+SELECT * FROM topic WHERE author='egoing' ORDER BY id DESC LIMIT 2; 
+
+# UPDATE  WHERE 안넣으면 큰일남..
+UPDATE topic SET description='바꿀내용', title='바꿀내용' WHERE id=2;
+
+# DELETE
+DELETE FROM topic WHERE id=5;
+
+# RENAME 
+RENAME TABLE topic TO topic_backup;
+
+# JOIN
+SELECT * FROM topic LEFT JOIN author ON topic.author_id = author.id;
+
+SELECT topic.id,title,description,created,name,profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
+SELECT topic.id AS topic_id,title,description,created,name,profile FROM topic LEFT JOIN author ON topic.author_id = author.id;
